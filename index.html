@@ -56,7 +56,7 @@
         <a href="#" onclick="showCookieBanner(); return false;" class="cookie-settings-link">Gérer mon consentement</a>
     </footer>
 
- <div id="cookie-banner" class="cookie-banner" style="display: none;">
+   <div id="cookie-banner" class="cookie-banner" style="display: none;">
     <p>
         Ce site utilise des cookies pour assurer son bon fonctionnement et vous donner accès à toutes ses fonctionnalités (comme le formulaire de contact).
     </p>
@@ -82,6 +82,7 @@
         const date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         const expires = "; expires=" + date.toUTCString();
+        // path=/ assure que le cookie est accessible sur tout le site
         document.cookie = name + "=" + (value || "")  + expires + "; path=/; max-age=" + (days * 24 * 60 * 60);
     }
 
@@ -90,40 +91,41 @@
         document.getElementById('cookie-banner').style.display = 'none';
     }
 
-    // Nouvelle fonction pour afficher la bannière (appelée par le lien du footer)
-    function showCookieBanner() {
-        document.getElementById('cookie-banner').style.display = 'block';
-    }
+    // Fonction pour afficher la bannière manuellement
+function showCookieBanner() {
+    document.getElementById('cookie-banner').style.display = 'block';
+}
+
+// Fonction pour cacher la bannière (existante)
+function hideBanner() {
+    document.getElementById('cookie-banner').style.display = 'none';
+}
+// ... le reste du code JavaScript ...
     
     // CAS 1: L'utilisateur accepte
     function acceptCookies() {
         setCookie(CONSENT_COOKIE_NAME, 'accepted'); 
         hideBanner();
-        // Une fois accepté, le blocage sur ressources.html est levé (lors du prochain chargement)
+        // Le consentement est enregistré, permettant aux scripts tiers de se charger sur ressources.html
     }
 
     // CAS 2: L'utilisateur refuse
     function refuseCookies() {
+        // Enregistre le refus. Ceci est la clé pour que la bannière ne s'affiche plus.
         setCookie(CONSENT_COOKIE_NAME, 'refused'); 
         hideBanner();
-        // Le blocage sur ressources.html reste actif (ou est activé)
+        // Le refus est enregistré. Les scripts tiers (Google Forms) seront bloqués sur ressources.html
     }
 
-    // Vérifie si la page actuelle est la page d'accueil
-    function isHomePage() {
-        const path = window.location.pathname;
-        // Vérifie les cas courants : /, /index.html, ou absence de chemin
-        return path === '/' || path.endsWith('/index.html') || path === '';
-    }
-
-    // Logique d'affichage au chargement de la page
+    // Vérifie au chargement de la page si le cookie existe
     window.onload = function() {
         const consent = getCookie(CONSENT_COOKIE_NAME);
         
-        // CORRECTION CLÉ : Affiche la bannière automatiquement SEULEMENT si c'est la page d'accueil ET qu'aucune décision n'a été prise.
-        if (!consent && isHomePage()) {
+        if (!consent) {
+            // Si aucune décision n'a été prise, affiche la bannière
             document.getElementById('cookie-banner').style.display = 'block';
         }
+        // Si consent vaut 'accepted' ou 'refused', la bannière reste cachée.
     }
 </script>
 
