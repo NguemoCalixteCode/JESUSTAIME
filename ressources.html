@@ -54,9 +54,19 @@
         <p>© 2025 JÉSUS T'AIME - Site bienveillant et sans jugement.</p>
         <a href="#" onclick="showCookieBanner(); return false;" class="cookie-settings-link">Gérer mon consentement</a>
     </footer>
+<div id="cookie-banner" class="cookie-banner" style="display: none;">
+    <p>
+        Ce site utilise des cookies pour assurer son bon fonctionnement et vous donner accès à toutes ses fonctionnalités (comme le formulaire de contact).
+    </p>
+    <div class="cookie-actions">
+        <button class="refuse-btn" onclick="refuseCookies()">Je refuse</button> 
+        <button class="accept-btn" onclick="acceptCookies()">J'accepte</button>
+    </div>
+</div>
 
-    <script>
+<script>
     const CONSENT_COOKIE_NAME = 'user_has_agreed_cookies';
+    const DAYS_TO_KEEP = 365;
 
     // Fonction utilitaire pour lire un cookie
     function getCookie(name) {
@@ -65,29 +75,74 @@
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
-    // Fonction pour vérifier le consentement et gérer le formulaire
-    function checkConsentAndBlockForm() {
-        const consent = getCookie(CONSENT_COOKIE_NAME);
-        const formBlock = document.querySelector('.contact-form-block');
-        
-        // Si le consentement est 'refused'
-        if (consent === 'refused') {
-            if (formBlock) {
-                // Masquer le contenu du bloc formulaire existant
-                formBlock.innerHTML = `
-                    <h3>Contacter / Recevoir la prière</h3>
-                    <p style="color: #CC0000; font-weight: bold;">
-                        ⚠️ Formulaire désactivé : Vous avez refusé les cookies. 
-                        Pour accéder au formulaire de contact et aux services associés, 
-                        vous devez d'abord accepter les cookies sur la <a href="index.html" style="color: #CC0000;">page d'accueil</a>.
-                    </p>
-                `;
-            }
-        }
+    // Fonction pour définir le cookie
+    function setCookie(name, value, days = DAYS_TO_KEEP) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "; expires=" + date.toUTCString();
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/; max-age=" + (days * 24 * 60 * 60);
     }
 
-    // Exécute la vérification au chargement de la page
-    window.onload = checkConsentAndBlockForm;
+    // Fonction pour cacher la bannière
+    function hideBanner() {
+        document.getElementById('cookie-banner').style.display = 'none';
+    }
+
+    // Fonction pour afficher la bannière manuellement (utilisée par le lien du footer)
+    function showCookieBanner() {
+        document.getElementById('cookie-banner').style.display = 'block';
+    }
+    
+    // CAS 1: L'utilisateur accepte
+    function acceptCookies() {
+        setCookie(CONSENT_COOKIE_NAME, 'accepted'); 
+        hideBanner();
+        // Recharge la page pour débloquer le formulaire immédiatement
+        window.location.reload(); 
+    }
+
+    // CAS 2: L'utilisateur refuse
+    function refuseCookies() {
+        setCookie(CONSENT_COOKIE_NAME, 'refused'); 
+        hideBanner();
+        // Ne recharge pas, mais le formulaire sera bloqué lors du prochain chargement.
+        // On pourrait ajouter un message d'alerte ici si vous le souhaitez.
+    }
+
+    // Vérifie si la page actuelle est la page d'accueil
+    function isHomePage() {
+        const path = window.location.pathname;
+        return path === '/' || path.endsWith('/index.html') || path === '';
+    }
+
+    // Logique d'affichage et de blocage au chargement de la page
+    window.onload = function() {
+        const consent = getCookie(CONSENT_COOKIE_NAME);
+        const formBlock = document.querySelector('.contact-form-block'); // Cible le conteneur du formulaire
+
+        // 1. GESTION DE L'AFFICHAGE DE LA BANNIÈRE
+        if (!consent && isHomePage()) {
+            // Affichage automatique seulement sur la page d'accueil si pas de décision
+            document.getElementById('cookie-banner').style.display = 'block';
+        }
+
+        // 2. GESTION DU BLOCAGE DU FORMULAIRE (SPÉCIFIQUE À CETTE PAGE)
+        if (formBlock && consent === 'refused') {
+            // Si le consentement est refusé et le bloc formulaire existe, on remplace son contenu
+            formBlock.innerHTML = `
+                <h3 style="color: #333; margin-bottom: 10px;">Contacter / Recevoir la prière</h3>
+                <p style="color: #CC0000; font-weight: bold; border: 1px solid #CC0000; padding: 15px; border-radius: 5px;">
+                    ⚠️ Formulaire désactivé : Vous avez refusé les cookies. 
+                    Ce service est inaccessible pour des raisons de confidentialité.
+                </p>
+                <p style="margin-top: 15px;">
+                    Veuillez cliquer sur le lien "Gérer mon consentement" en bas de page, puis accepter les cookies, pour accéder à cette ressource.
+                </p>
+            `;
+        }
+    }
 </script>
+
+
 </body>
 </html>
