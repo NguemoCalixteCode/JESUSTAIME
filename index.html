@@ -77,11 +77,12 @@
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
-    // Fonction pour définir le cookie (valeur: 'accepted' ou 'refused')
-    function setCookie(name, value, days = DAYS_TO999) { // 365 days
+    // Fonction pour définir le cookie (CORRECTION EFFECTUÉE ICI)
+    function setCookie(name, value, days = DAYS_TO_KEEP) { // Utilise DAYS_TO_KEEP
         const date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         const expires = "; expires=" + date.toUTCString();
+        // path=/ assure que le cookie est accessible sur tout le site
         document.cookie = name + "=" + (value || "")  + expires + "; path=/; max-age=" + (days * 24 * 60 * 60);
     }
 
