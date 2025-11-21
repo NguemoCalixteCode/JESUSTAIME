@@ -405,4 +405,102 @@ footer {
     }
 }
 
+/* --- Styles pour la Bannière de Consentement des Cookies --- */
+
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333; /* Fond sombre pour le contraste */
+    color: var(--color-white);
+    padding: 15px 20px;
+    text-align: center;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Assure que la bannière est au-dessus de tout */
+    /* Le 'display: none' initial est géré dans le HTML */
+}
+
+/* Texte du paragraphe */
+.cookie-banner p {
+    margin: 0;
+    font-size: 0.9em;
+    display: inline-block;
+    vertical-align: middle;
+    /* Ajout d'une marge pour séparer le texte des boutons */
+    margin-right: 20px; 
+}
+
+/* Conteneur des boutons pour l'alignement (nouveau) */
+.cookie-actions {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Styles communs aux deux boutons */
+.cookie-actions button {
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 700;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+/* Styles pour le bouton Accepter */
+.cookie-actions .accept-btn {
+    background-color: var(--color-primary); /* Rouge doux */
+    color: var(--color-white);
+    margin-left: 10px; /* Espace entre les deux boutons */
+}
+
+.cookie-actions .accept-btn:hover {
+    background-color: #E06969;
+}
+
+/* Styles spécifiques pour le bouton Refuser (nouveau) */
+.cookie-actions .refuse-btn {
+    background-color: var(--color-white);
+    color: var(--color-text-dark); /* Utiliser une couleur de texte sombre */
+    border: 1px solid #CCC; /* Bordure légère pour le distinguer du fond */
+}
+
+.cookie-actions .refuse-btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* Rendre la disposition plus conviviale sur mobile */
+@media (max-width: 600px) {
+    .cookie-banner {
+        padding: 15px 10px;
+        text-align: left;
+    }
+    .cookie-banner p {
+        display: block; /* Le texte prend toute la ligne */
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+    
+    /* Les actions prennent toute la largeur et les boutons sont répartis */
+    .cookie-actions {
+        display: flex; 
+        width: 100%;
+        justify-content: space-between; 
+    }
+    
+    /* Les boutons se partagent l'espace et les marges sont ajustées */
+    .cookie-actions button {
+        flex: 1; /* Chaque bouton prend la même largeur */
+        margin: 0 5px; /* Petit espace entre les boutons */
+    }
+    
+    .cookie-actions button:first-child {
+        margin-left: 0;
+    }
+    
+    .cookie-actions button:last-child {
+        margin-right: 0;
+    }
+}
 

@@ -54,5 +54,39 @@
         <p>© 2025 JÉSUS T'AIME - Site bienveillant et sans jugement.</p>
     </footer>
 
+    <script>
+    const CONSENT_COOKIE_NAME = 'user_has_agreed_cookies';
+
+    // Fonction utilitaire pour lire un cookie
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    // Fonction pour vérifier le consentement et gérer le formulaire
+    function checkConsentAndBlockForm() {
+        const consent = getCookie(CONSENT_COOKIE_NAME);
+        const formBlock = document.querySelector('.contact-form-block');
+        
+        // Si le consentement est 'refused'
+        if (consent === 'refused') {
+            if (formBlock) {
+                // Masquer le contenu du bloc formulaire existant
+                formBlock.innerHTML = `
+                    <h3>Contacter / Recevoir la prière</h3>
+                    <p style="color: #CC0000; font-weight: bold;">
+                        ⚠️ Formulaire désactivé : Vous avez refusé les cookies. 
+                        Pour accéder au formulaire de contact et aux services associés, 
+                        vous devez d'abord accepter les cookies sur la <a href="index.html" style="color: #CC0000;">page d'accueil</a>.
+                    </p>
+                `;
+            }
+        }
+    }
+
+    // Exécute la vérification au chargement de la page
+    window.onload = checkConsentAndBlockForm;
+</script>
 </body>
 </html>
