@@ -53,6 +53,7 @@
 
     <footer>
         <p>© 2025 JÉSUS T'AIME - Site bienveillant et sans jugement.</p>
+        <a href="#" onclick="showCookieBanner(); return false;" class="cookie-settings-link">Gérer mon consentement</a>
     </footer>
 
    <div id="cookie-banner" class="cookie-banner" style="display: none;">
@@ -89,6 +90,12 @@
     function hideBanner() {
         document.getElementById('cookie-banner').style.display = 'none';
     }
+
+    // Fonction pour afficher la bannière manuellement
+function showCookieBanner() {
+    document.getElementById('cookie-banner').style.display = 'block';
+}
+
     
     // CAS 1: L'utilisateur accepte
     function acceptCookies() {

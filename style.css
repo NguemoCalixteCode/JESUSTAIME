@@ -504,3 +504,18 @@ footer {
     }
 }
 
+/* --- Style pour le lien de gestion du consentement (Footer) --- */
+
+.cookie-settings-link {
+    display: block; /* Prend toute la largeur pour être facile à cliquer */
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: var(--color-light-pink); /* Utiliser une couleur du thème pour qu'il soit visible sur le fond sombre du footer */
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.cookie-settings-link:hover {
+    color: var(--color-white);
+}
+
