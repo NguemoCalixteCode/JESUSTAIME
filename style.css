@@ -1,0 +1,408 @@
+/* --- NOUVEAU: Réinitialisation pour une meilleure lisibilité mobile --- */
+html {
+    font-size: 100%; /* Définit la base de 16px */
+}
+
+body {
+    /* ... (Gardez le reste du code body) ... */
+    padding-top: 50px; /* Ajoute un espace pour le header fixe (si on le rend fixe) */
+}
+
+/* Redéfinit les tailles de titres pour qu'elles soient responsives */
+.main-title {
+    font-size: 2.8em; /* Un peu plus petit sur mobile que le 3em précédent */
+}
+
+@media (max-width: 480px) {
+    /* Ajustement des titres sur les très petits écrans */
+    .main-title {
+        font-size: 2em; 
+    }
+}
+
+/* --- Mise à jour de la Navigation --- */
+
+
+/* --- 3. Header et Navigation --- */
+header {
+    background-color: var(--color-white);
+    padding: 10px 15px;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    
+    
+    /* MODIFICATION CLÉ: Aligner verticalement le contenu au centre */
+    align-items: center; 
+    
+    /* MODIFICATION CLÉ: Définir une hauteur minimale raisonnable */
+    min-height: 70px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+    margin-left: 0; /* Garder l'alignement à gauche */
+    /* MODIFICATION CLÉ: Empêcher la div logo de forcer la hauteur */
+    height: 100%; 
+    display: flex;
+    align-items: center;
+}
+
+
+nav {
+    /* Ajouté pour s'assurer que la navigation prend toute la largeur si besoin */
+    width: 100%; 
+    text-align: center;
+    padding-top: 5px;
+}
+
+nav a {
+    /* ... (gardez les styles existants) ... */
+    margin: 0 5px; /* Ajoute de l'espace entre les liens */
+}
+
+/* MEDIA QUERY pour les très petits écrans (s'assurer que le menu ne déborde pas) */
+@media (max-width: 550px) {
+    header {
+        flex-direction: column; /* Force le logo et la nav à s'empiler */
+    }
+    .logo {
+        margin-bottom: 5px;
+    }
+    nav a {
+        padding: 5px;
+    }
+}
+
+/* Réajustement pour les grands écrans (768px et plus) */
+@media (min-width: 768px) {
+    header {
+        flex-direction: row; /* Retour à la ligne normale pour PC */
+        justify-content: space-between;
+    }
+    nav {
+        width: auto;
+        padding-top: 0;
+    }
+}
+
+/* --- Mise à jour de .content-section (Pages 2, 3, 4) --- */
+.content-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: var(--color-white);
+    border-radius: 15px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* NOUVEAU: Empêche le padding de trop écraser sur mobile */
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+/* Ajustement pour les très petits écrans */
+@media (max-width: 400px) {
+    .content-section {
+        margin: 20px 10px; /* Moins de marge autour du bloc */
+        padding: 15px; /* Moins de padding interne */
+    }
+}
+
+/* Ajustement du Bloc Formulaire (très important pour le remplissage) */
+.contact-form-block {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: var(--color-light-pink);
+    border-radius: 10px;
+    /* NOUVEAU: Assure que le contenu s'adapte bien */
+    width: 100%;
+    max-width: none;
+}
+
+/* --- 1. Variables de Couleurs (Palette Suggérée) --- */
+:root {
+    --color-primary: #FF7F7F; /* Rouge doux (Amour, Cœur de Jésus)  */
+    --color-secondary: #87CEEB; /* Bleu Ciel (Paix, Foi)  */
+    --color-white: #FFFFFF; /* Blanc (Pureté, Lumière)  */
+    --color-light-pink: #FFDAB9; /* Rose Clair (Douceur, Compassion)  */
+    --color-text-dark: #333333;
+    --color-text-light: #666666;
+    --font-title: 'Montserrat', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+}
+
+/* --- 2. Styles de Base (Mobile-First) --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+    background-color: var(--color-light-pink); /* Ambiance douce et lumineuse  */
+    text-align: center;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-title);
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 0.5em;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-primary);
+}
+
+/* --- 3. Header et Navigation --- */
+header {
+    background-color: var(--color-white);
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+
+
+nav a {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    color: var(--color-secondary);
+    background-color: var(--color-light-pink);
+    border-radius: 5px;
+}
+
+nav a.active{
+    color: var(--color-secondary);
+    background-color: var(--color-light-pink);
+    border-radius: 5px;
+}
+
+
+/* --- 4. Section Accueil (Main) --- */
+.accueil-section {
+    min-height: 85vh; /* Assurer que la page est bien remplie */
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-light-pink); /* Fond doux  */
+}
+
+.accueil-content {
+    max-width: 600px;
+    padding: 20px;
+    background: var(--color-white);
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cross-icon {
+    font-size: 1.5em;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.main-title {
+    font-size: 2.2em;
+    margin-top: 0;
+    letter-spacing: 2px;
+}
+
+.sub-text {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    color: var(--color-text-dark);
+}
+
+.bible-quote {
+    font-style: italic;
+    color: var(--color-text-light);
+    border-left: 5px solid var(--color-secondary);
+    padding: 10px 15px;
+    margin: 25px 0;
+    background-color: #f9f9f9;
+}
+
+.bible-quote cite {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9em;
+    text-align: right;
+}
+
+.reminder {
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 30px;
+}
+
+/* Bouton d'Action (CTA) */
+.cta-button {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-family: var(--font-title);
+    text-transform: uppercase;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 4px 8px rgba(255, 127, 127, 0.4);
+}
+
+.cta-button:hover {
+    background-color: #E06969; /* Rouge un peu plus foncé */
+    transform: translateY(-2px);
+}
+
+/* --- 5. Footer --- */
+footer {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 15px;
+    font-size: 0.8em;
+}
+
+/* --- 6. Media Queries (Pour les écrans plus larges) --- */
+@media (min-width: 768px) {
+    header {
+        padding: 15px 50px;
+    }
+
+    .logo {
+        font-size: 1.5em;
+    }
+
+    nav a {
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+
+    .accueil-section {
+        padding: 60px 40px;
+    }
+
+    .main-title {
+        font-size: 3em;
+    }
+}
+
+/* Style générique pour les pages 2, 3, 4 */
+.content-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: var(--color-white);
+    border-radius: 15px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.content-section h2 {
+    text-align: center;
+    border-bottom: 2px solid var(--color-light-pink);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+.content-section p {
+    margin-bottom: 15px;
+}
+
+/* Styles pour les liens de ressources */
+.resource-links {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid var(--color-secondary);
+    border-radius: 10px;
+    background-color: #f0f8ff; /* Bleu très léger */
+}
+
+.resource-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.resource-links li {
+    margin-bottom: 10px;
+}
+
+.resource-links a {
+    font-weight: 700;
+    color: var(--color-text-dark);
+    transition: color 0.3s;
+}
+
+.resource-links a:hover {
+    color: var(--color-primary);
+}
+
+/* Styles pour le bloc formulaire */
+.contact-form-block {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: var(--color-light-pink);
+    border-radius: 10px;
+}
+
+.small-cta {
+    padding: 10px 20px;
+    font-size: 0.9em;
+}
+
+
+/* --- NOUVEAUX STYLES POUR L'IMAGE DU LOGO (Section 3) --- */
+
+.logo {
+    margin-left: 15px; 
+}
+
+.logo-img {
+    /* Augmentation de la taille de base pour le mobile (environ 60px) */
+    height: 80px; 
+    width: auto; 
+    display: block; 
+}
+
+
+/* --- 6. Media Queries (Pour les écrans plus larges) --- */
+@media (min-width: 768px) {
+    
+    /* 1. Contrôle du HEADER */
+    header {
+        /* Réduit la marge interne verticale (top/bottom) pour compacter la barre */
+        padding: 5px 50px; 
+        
+        /* Définit une hauteur minimale pour stabiliser la barre, légèrement supérieure au logo */
+        min-height: 90px; /* Si le logo fait 80px, le header doit être au moins 90px (80+5+5) */
+    }
+
+    /* 2. Taille du LOGO (laissez-la à 80px) */
+    .logo-img {
+        height: 100px; /* Taille pour les grands écrans */
+    }
+
+    /* 3. Ajustement de la navigation */
+    nav a {
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+}
+
+
